@@ -59,8 +59,13 @@ end
     @group = Group.find(params[:id])
     if current_user.is_member_of?(@group)
       current_user.quit!(@group)
-      flash[:alert]="你已经不是本讨论版成员"
+      flash[:alert]="已退出本讨论版！"
+    else
+      flash[:warning]="你不是本讨论版成员！"
+    end
+    redirect_to group_path(@group)
   end
+  
   private
   def find_group_and_check_permission
     @group = Group.find(params[:id])
